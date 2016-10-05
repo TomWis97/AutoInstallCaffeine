@@ -20,5 +20,14 @@ mkdir -p "$install_path/$extension_uuid"
 unzip -op /tmp/caffeine-extension.zip "$install_path/$extension_uuid"
 # Delete temporary zip.
 rm /tmp/caffeine-extension.zip
+
+# Enable extension
+# list enabled extensions
+ext_list=$(gsettings get org.gnome.shell enabled-extensions | sed 's/^.\(.*\).$/\1/')
+
+# if extension not already enabled, declare it
+ext_enabled=$(echo ${ext_list} | grep ${extension_uuid})
+[ "$ext_enabled" = "" ] && gsettings set org.gnome.shell enabled-extensions "[${ext_list},'${extension_uuid}']"
+
 #After we're done, we'll need to restart Gnome.
 gnome-shell --replace &
