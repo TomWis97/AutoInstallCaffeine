@@ -38,5 +38,10 @@ else
   dconf write /org/gnome/shell/enabled-extensions "[${ext_cur_enabled}, '${ext_uuid}']"
 fi
 
-#After we're done, restart Gnome.
+# Enable extension by default and hide icon.
+dconf write /org/gnome/shell/extensions/caffeine/user-enabled true
+dconf write /org/gnome/shell/extensions/caffeine/restore-state true
+#dconf write /org/gnome/shell/extensions/caffeine/show-indicator true
+
+#After we're done, restart Gnome. (Uncomment for restart.)
 #gnome-shell --replace &
