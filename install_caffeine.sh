@@ -28,6 +28,16 @@ unzip -o /tmp/caffeine-extension.zip -d "$install_path/$extension_uuid"
 # Delete temporary zip.
 rm /tmp/caffeine-extension.zip
 
+# Assume that the extension isn't enabled yet.
+ext_cur_enabled=$(dconf read /org/gnome/shell/enabled-extensions | sed 's/^.\(.*\).$/\1/')
+if [ "$ext_cur_enabled" = "" ] then
+  do echo "No extensions enabled yet."
+  dconf write /org/gnome/shell/enabled-extensions "['${ext_uuid}']"
+else
+  echo "Already enabled extensions: ${$ext_cur_enabled}"
+  dconf write /org/gnome/shell/enabled-extensions "[${ext_cur_enabled}, '${ext_uuid}']"
+
+exit
 # Enable extension
 # list enabled extensions
 ext_list=$(gsettings get org.gnome.shell enabled-extensions | sed 's/^.\(.*\).$/\1/')
