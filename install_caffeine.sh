@@ -9,7 +9,6 @@
 #          is adviseable.
 #
 #TODO Check if Caffeine is already installed.
-#TODO Use dconf instead of gsettings.
 # Source: http://bernaerts.dyndns.org/linux/76-gnome/345-gnome-shell-install-remove-extension-command-line-script
 
 # Set variables so we can easily change them if necessary.
@@ -30,25 +29,14 @@ rm /tmp/caffeine-extension.zip
 
 # Assume that the extension isn't enabled yet.
 ext_cur_enabled=$(dconf read /org/gnome/shell/enabled-extensions | sed 's/^.\(.*\).$/\1/')
-if [ "$ext_cur_enabled" = "" ] then
-  do echo "No extensions enabled yet."
+if [ "$ext_cur_enabled" = "" ]
+  then
+  echo "No extensions enabled yet."
   dconf write /org/gnome/shell/enabled-extensions "['${ext_uuid}']"
 else
   echo "Already enabled extensions: ${$ext_cur_enabled}"
   dconf write /org/gnome/shell/enabled-extensions "[${ext_cur_enabled}, '${ext_uuid}']"
-
-exit
-# Enable extension
-# list enabled extensions
-ext_list=$(gsettings get org.gnome.shell enabled-extensions | sed 's/^.\(.*\).$/\1/')
-
-# If extension not already enabled, declare it
-ext_enabled=$(echo ${ext_list} | grep ${extension_uuid})
-# Printing for debugging.#####
-echo ext_enabled $ext_enabled
-echo ext_list $ext_list
-#########################
-[ "$ext_enabled" = "" ] && gsettings set org.gnome.shell enabled-extensions "[${ext_list},'${extension_uuid}']"
+fi
 
 #After we're done, restart Gnome.
-gnome-shell --replace &
+#gnome-shell --replace &
