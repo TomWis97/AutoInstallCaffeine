@@ -24,7 +24,7 @@ wget -O /tmp/caffeine-extension.zip "$extensions_site$extension_downloadurl"
 # Create directory.
 mkdir -p "$install_path/$extension_uuid"
 # Extract zip to install location.
-unzip -o /tmp/caffeien-extension.zip -d "$install_path/$extension_uuid"
+unzip -o /tmp/caffeine-extension.zip -d "$install_path/$extension_uuid"
 # Delete temporary zip.
 rm /tmp/caffeine-extension.zip
 
