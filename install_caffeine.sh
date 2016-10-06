@@ -16,8 +16,7 @@ extension_uuid="caffeine@patapon.info"
 extension_downloadurl="/download-extension/caffeine@patapon.info.shell-extension.zip?version_tag=5712"
 install_path="$HOME/.local/share/gnome-shell/extensions"
 extensions_site="https://extensions.gnome.org"
-# Done setting variables.
-echo "Gnome version $gnome_version found."
+
 # Download zip to /tmp.
 wget -O /tmp/caffeine-extension.zip "$extensions_site$extension_downloadurl"
 # Create directory.
@@ -38,10 +37,13 @@ else
   dconf write /org/gnome/shell/enabled-extensions "[${ext_cur_enabled}, '${ext_uuid}']"
 fi
 
-# Enable extension by default and hide icon.
+# Enable extension by default.
 dconf write /org/gnome/shell/extensions/caffeine/user-enabled true
 dconf write /org/gnome/shell/extensions/caffeine/restore-state true
-#dconf write /org/gnome/shell/extensions/caffeine/show-indicator true
+# Disable status icon.
+dconf write /org/gnome/shell/extensions/caffeine/show-indicator false
+# Disable notification.
+#dconf write /org/gnome/shell/extensions/caffeine/show-notifications false
 
 #After we're done, restart Gnome. (Uncomment for restart.)
 #gnome-shell --replace &
