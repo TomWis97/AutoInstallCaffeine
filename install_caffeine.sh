@@ -32,9 +32,9 @@ ext_cur_enabled=$(dconf read /org/gnome/shell/enabled-extensions | sed 's/^.\(.*
 if [ "$ext_cur_enabled" = "" ]
   then
   echo "No extensions enabled yet."
-  dconf write /org/gnome/shell/enabled-extensions "['${ext_uuid}']"
+  dconf write /org/gnome/shell/enabled-extensions "['${extension_uuid}']"
 else
-  echo "Already enabled extensions: ${$ext_cur_enabled}"
+  echo "Already enabled extensions: ${ext_cur_enabled}"
   dconf write /org/gnome/shell/enabled-extensions "[${ext_cur_enabled}, '${ext_uuid}']"
 fi
 
