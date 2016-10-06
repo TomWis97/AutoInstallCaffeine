@@ -34,6 +34,10 @@ ext_list=$(gsettings get org.gnome.shell enabled-extensions | sed 's/^.\(.*\).$/
 
 # If extension not already enabled, declare it
 ext_enabled=$(echo ${ext_list} | grep ${extension_uuid})
+# Printing for debugging.#####
+echo ext_enabled $ext_enabled
+echo ext_list $ext_list
+#########################
 [ "$ext_enabled" = "" ] && gsettings set org.gnome.shell enabled-extensions "[${ext_list},'${extension_uuid}']"
 
 #After we're done, restart Gnome.
